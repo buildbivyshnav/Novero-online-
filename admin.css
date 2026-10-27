@@ -1,0 +1,83 @@
+/* Novero owner dashboard – extra styles (Tailwind does most of the work) */
+html { -webkit-tap-highlight-color: transparent; }
+body { background: #f4f4f8; color: #18181b; font-family: Inter, system-ui, sans-serif; overflow-x: hidden; }
+button { cursor: pointer; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* sidebar */
+.side-link {
+  display: flex; align-items: center; gap: .75rem; width: 100%;
+  padding: .6rem .75rem; border-radius: .6rem; font-size: .9rem; color: #52525b;
+  transition: background .15s, color .15s;
+}
+.side-link:hover { background: rgba(0,0,0,.04); }
+.side-link.is-active { background: #fff; color: #18181b; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.side-badge { margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9999px; background: #ef4444; color: #fff; font-size: 10px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+
+#sidebar { transition: transform .3s ease; }
+@media (max-width: 767px) {
+  #sidebar { position: fixed; inset: 0 auto 0 0; z-index: 70; width: 17rem; transform: translateX(-100%); box-shadow: 10px 0 40px rgba(0,0,0,.2); }
+  #sidebar.is-open { transform: none; }
+}
+
+/* cards / tables */
+.panel { background: #fff; border: 1px solid #ececf1; border-radius: .9rem; }
+.stat-card { background: #fafafc; border: 1px solid #ececf1; border-radius: .9rem; padding: .9rem 1rem; }
+.tbl { width: 100%; font-size: .85rem; border-collapse: collapse; min-width: 640px; }
+.tbl th { text-align: left; font-weight: 500; font-size: .75rem; color: #71717a; padding: .7rem .9rem; background: #fafafc; border-bottom: 1px solid #ececf1; white-space: nowrap; }
+.tbl td { padding: .75rem .9rem; border-bottom: 1px solid #f1f1f5; vertical-align: middle; }
+.tbl tbody tr.row { cursor: pointer; transition: background .12s; }
+.tbl tbody tr.row:hover { background: #fafaff; }
+.tbl input[type=checkbox] { width: 1rem; height: 1rem; accent-color: #6d4aff; }
+
+.tab { padding: .35rem .8rem; font-size: .8rem; border-radius: .5rem; color: #52525b; }
+.tab.is-active { background: #fff; color: #18181b; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .55rem 1rem; border-radius: .6rem; font-size: .85rem; font-weight: 500; border: 1px solid #e4e4ea; background: #fff; transition: opacity .15s; }
+.btn:hover { opacity: .85; }
+.btn-primary { background: #6d4aff; border-color: #6d4aff; color: #fff; }
+.btn-danger { color: #dc2626; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.field { width: 100%; padding: .6rem .8rem; border: 1px solid #e4e4ea; border-radius: .6rem; background: #fff; font-size: .9rem; outline: none; }
+.field:focus { border-color: #6d4aff; box-shadow: 0 0 0 3px rgba(109,74,255,.12); }
+label.lbl { display: block; font-size: .75rem; font-weight: 500; color: #52525b; margin-bottom: .3rem; }
+
+/* overlays */
+.overlay { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s, visibility .25s; }
+.overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.overlay-bg { position: absolute; inset: 0; background: rgba(24, 24, 27, .5); }
+.modal-card { position: relative; width: 100%; max-width: 30rem; max-height: 92vh; overflow-y: auto; background: #fff; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 25px 60px rgba(0,0,0,.25); transform: translateY(20px); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.overlay.is-open .modal-card { transform: none; }
+.modal-x { position: absolute; top: .8rem; right: .9rem; width: 32px; height: 32px; border-radius: 9999px; font-size: 1.05rem; }
+.modal-x:hover { background: rgba(0,0,0,.06); }
+
+#orderDrawer { justify-content: flex-end; padding: 0; }
+#orderDrawer .drawer { position: relative; height: 100%; width: 100%; max-width: 30rem; background: #fff; overflow-y: auto; transform: translateX(100%); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+#orderDrawer.is-open .drawer { transform: none; }
+
+/* bulk bar */
+.bulk-bar { position: fixed; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); z-index: 60; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; justify-content: center; background: #fff; border: 1px solid #ececf1; border-radius: .9rem; padding: .5rem .7rem; box-shadow: 0 10px 40px rgba(0,0,0,.15); max-width: calc(100vw - 1.5rem); transition: transform .3s ease; }
+.bulk-bar.is-show { transform: translate(-50%, 0); }
+
+.toast { position: fixed; left: 50%; bottom: 80px; z-index: 120; transform: translate(-50%, 20px); background: #18181b; color: #fff; padding: .65rem 1.1rem; border-radius: 9999px; font-size: .85rem; max-width: 90vw; text-align: center; opacity: 0; pointer-events: none; transition: all .3s; }
+.toast.is-show { opacity: 1; transform: translate(-50%, 0); }
+
+.view:not(.hidden) { animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* invoice */
+#invoiceSheet { background: #fff; color: #111; font-size: .85rem; }
+#invoiceSheet table { width: 100%; border-collapse: collapse; }
+#invoiceSheet th { text-align: left; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #666; padding: .5rem 0; border-bottom: 1px solid #ddd; }
+#invoiceSheet td { padding: .55rem 0; border-bottom: 1px solid #eee; vertical-align: top; }
+#invoiceSheet .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+@media print {
+  body * { visibility: hidden !important; }
+  #invoiceSheet, #invoiceSheet * { visibility: visible !important; }
+  #invoiceModal { position: static !important; display: block !important; opacity: 1 !important; visibility: visible !important; padding: 0 !important; }
+  #invoiceModal .modal-card { box-shadow: none !important; max-width: none !important; max-height: none !important; padding: 0 !important; transform: none !important; }
+  #invoiceSheet { position: absolute; left: 0; top: 0; width: 100%; padding: 24px; }
+}

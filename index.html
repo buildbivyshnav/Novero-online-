@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#faf6f1" />
+  <title>Novero – Gift Hampers, Photo Frames &amp; Jewellery</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind via CDN + theme -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream: '#faf6f1', ink: '#1c1917', blush: '#ecd3cb', gold: '#b08d57', mute: '#78716c' },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-cream text-ink font-sans antialiased">
+
+  <!-- ============ ANNOUNCEMENT TICKER ============ -->
+  <div class="bg-ink text-cream text-[11px] tracking-[0.2em] overflow-hidden whitespace-nowrap py-2">
+    <div class="ticker-track">
+      <span class="px-8">FREE DELIVERY ABOVE ₹2,000</span><span>|</span>
+      <span class="px-8">DELIVERY IN 5-7 DAYS</span><span>|</span>
+      <span class="px-8">HAND-CRAFTED WITH LOVE</span><span>|</span>
+      <span class="px-8">FREE DELIVERY ABOVE ₹2,000</span><span>|</span>
+      <span class="px-8">DELIVERY IN 5-7 DAYS</span><span>|</span>
+      <span class="px-8">HAND-CRAFTED WITH LOVE</span><span>|</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <button data-view="home" class="font-serif text-3xl font-semibold tracking-wide" aria-label="Novero home">Novero</button>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm tracking-wide">
+        <button data-view="home" class="hover:text-gold">Home</button>
+        <button data-view="shop" class="hover:text-gold">Shop All</button>
+        <button data-view="collections" class="hover:text-gold">Collections</button>
+        <a href="#contact" class="hover:text-gold">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-1">
+        <button data-open="search" class="icon-btn" aria-label="Search">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        </button>
+        <button id="btnUser" class="icon-btn" aria-label="Account">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          <span id="userDot" class="hidden absolute top-2 right-2 w-2 h-2 rounded-full bg-gold"></span>
+        </button>
+        <button data-open="cart" class="icon-btn" aria-label="Cart">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke-linecap="round"/></svg>
+          <span class="cart-badge badge hidden">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main class="pb-24 md:pb-0 min-h-[70vh]">
+
+    <!-- ---------- HOME ---------- -->
+    <section id="view-home" class="view">
+
+      <!-- Hero carousel -->
+      <div id="hero" class="relative overflow-hidden bg-blush/40">
+        <div id="heroTrack" class="flex transition-transform duration-700 ease-out"></div>
+        <button id="heroPrev" class="hero-arrow left-3" aria-label="Previous slide">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="heroNext" class="hero-arrow right-3" aria-label="Next slide">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="heroDots" class="absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
+      </div>
+
+      <!-- Shop by category -->
+      <div class="max-w-6xl mx-auto px-4 pt-12">
+        <h2 class="section-title">Shop Categories</h2>
+        <div id="categoryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-6"></div>
+      </div>
+
+      <!-- New arrivals -->
+      <div class="max-w-6xl mx-auto px-4 pt-14">
+        <div class="flex items-end justify-between">
+          <h2 class="section-title !text-left">New Arrivals</h2>
+          <button data-view="shop" class="text-xs tracking-[0.2em] underline underline-offset-4">VIEW ALL</button>
+        </div>
+        <div id="arrivalsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6"></div>
+      </div>
+    </section>
+
+    <!-- ---------- SHOP ---------- -->
+    <section id="view-shop" class="view hidden">
+      <div class="max-w-6xl mx-auto px-4 pt-8">
+        <h2 class="section-title">Shop All</h2>
+        <div id="chipRow" class="flex gap-2 overflow-x-auto no-scrollbar mt-6 pb-1"></div>
+        <div id="shopGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6"></div>
+      </div>
+    </section>
+
+    <!-- ---------- COLLECTIONS ---------- -->
+    <section id="view-collections" class="view hidden">
+      <div class="max-w-6xl mx-auto px-4 pt-8">
+        <h2 class="section-title">Our Collections</h2>
+        <div id="collectionsWrap" class="mt-6 space-y-10"></div>
+      </div>
+    </section>
+
+    <!-- ---------- WISHLIST ---------- -->
+    <section id="view-wishlist" class="view hidden">
+      <div class="max-w-6xl mx-auto px-4 pt-8">
+        <button data-view="account" class="text-sm text-mute mb-2">← Back to account</button>
+        <h2 class="section-title">Your Wishlist</h2>
+        <div id="wishlistGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6"></div>
+      </div>
+    </section>
+
+    <!-- ---------- ORDERS ---------- -->
+    <section id="view-orders" class="view hidden">
+      <div class="max-w-xl mx-auto px-4 pt-8">
+        <button data-view="account" class="text-sm text-mute mb-2">← Back to account</button>
+        <h2 class="section-title">Your Orders</h2>
+        <div id="ordersList" class="mt-6 space-y-4"></div>
+      </div>
+    </section>
+
+    <!-- ---------- ACCOUNT (protected) ---------- -->
+    <section id="view-account" class="view hidden">
+      <div class="max-w-xl mx-auto px-4 pt-8 pb-6">
+        <p class="text-xs tracking-[0.25em] text-mute">MY ACCOUNT</p>
+        <h2 id="acctGreeting" class="font-serif text-4xl mt-1">Hello</h2>
+        <p id="acctPhone" class="text-sm text-mute mt-1"></p>
+
+        <!-- Recent order -->
+        <div class="mt-6 bg-white rounded-2xl p-5 shadow-soft">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-2xl">Recent order</h3>
+            <span id="recentBadge" class="text-[11px] tracking-widest px-3 py-1 rounded-full bg-blush/60">NONE YET</span>
+          </div>
+          <p id="recentText" class="text-sm text-mute mt-2">You haven't placed an order yet. Your latest order status will show up here.</p>
+          <button id="recentBtn" data-view="shop" class="btn-dark mt-4 !py-3 !text-xs">START SHOPPING</button>
+        </div>
+
+        <!-- Navigation rows -->
+        <div class="mt-4 bg-white rounded-2xl shadow-soft divide-y divide-black/5 overflow-hidden">
+          <button data-acct="orders" class="acct-row">
+            <span class="acct-ico">📦</span>
+            <span class="flex-1 text-left"><b class="block font-medium">Orders</b><small class="text-mute">Track orders and returns</small></span>
+            <span class="text-mute">›</span>
+          </button>
+          <button data-acct="addresses" class="acct-row">
+            <span class="acct-ico">📍</span>
+            <span class="flex-1 text-left"><b class="block font-medium">Addresses</b><small class="text-mute">Saved places for faster checkout</small></span>
+            <span class="text-mute">›</span>
+          </button>
+          <button data-acct="wishlist" class="acct-row">
+            <span class="acct-ico">♡</span>
+            <span class="flex-1 text-left"><b class="block font-medium">Wishlist</b><small class="text-mute">Products you saved</small></span>
+            <span class="text-mute">›</span>
+          </button>
+          <button data-acct="profile" class="acct-row">
+            <span class="acct-ico">👤</span>
+            <span class="flex-1 text-left"><b class="block font-medium">Profile details</b><small class="text-mute">Name and phone number</small></span>
+            <span class="text-mute">›</span>
+          </button>
+          <button data-acct="logout" class="acct-row">
+            <span class="acct-ico">🔒</span>
+            <span class="flex-1 text-left"><b class="block font-medium">Password / Logout</b><small class="text-mute">You sign in with an OTP – no password needed</small></span>
+            <span class="text-mute">›</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="contact" class="bg-ink text-cream/80 pb-28 md:pb-10">
+    <div class="max-w-6xl mx-auto px-4 pt-12 grid gap-10 md:grid-cols-3">
+      <div>
+        <h3 class="font-serif text-3xl text-cream">Novero</h3>
+        <p class="text-sm mt-3 leading-relaxed">Your little corner of sparkle and self-love. Customised gift hampers, boutique photo frames and hand-crafted jewellery.</p>
+      </div>
+      <div>
+        <h4 class="text-xs tracking-[0.25em] text-cream mb-4">QUICK LINKS</h4>
+        <ul class="space-y-2 text-sm">
+          <li><button data-view="home" class="hover:text-gold">Home</button></li>
+          <li><button data-view="shop" class="hover:text-gold">Shop All</button></li>
+          <li><button data-view="collections" class="hover:text-gold">Collections</button></li>
+          <li><a href="#contact" class="hover:text-gold">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs tracking-[0.25em] text-cream mb-4">CONTACT INFO</h4>
+        <ul class="space-y-2 text-sm">
+          <li>✉ vyshnavas716@gmail.com</li>
+          <li>☎ +91 70129 79248</li>
+          <li>⌖ Kerala, India</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 mt-10 pt-6 border-t border-white/10 text-xs flex flex-wrap gap-x-6 gap-y-2 justify-between">
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
+        <a href="#" class="hover:text-gold">Terms &amp; Conditions</a>
+        <a href="#" class="hover:text-gold">Privacy Policy</a>
+        <a href="#" class="hover:text-gold">Refund Policy</a>
+        <a href="#" class="hover:text-gold">Shipping Policy</a>
+      </div>
+      <p>© <span id="year"></span> Novero. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ============ FIXED BOTTOM NAV (mobile) ============ -->
+  <nav class="bottom-nav md:hidden" aria-label="Primary">
+    <button data-view="home" class="bn-item" data-nav="home">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" stroke-linejoin="round"/></svg>
+      <span>Home</span>
+    </button>
+    <button data-view="shop" class="bn-item" data-nav="shop">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 7h16l-1 13H5L4 7Z" stroke-linejoin="round"/><path d="M8 7a4 4 0 0 1 8 0" stroke-linecap="round"/></svg>
+      <span>Shop</span>
+    </button>
+    <button data-view="collections" class="bn-item" data-nav="collections">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+      <span>Collections</span>
+    </button>
+    <button data-open="cart" class="bn-item relative" data-nav="cart">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke-linecap="round"/></svg>
+      <span>Cart</span>
+      <span class="cart-badge badge hidden !top-0 !right-5">0</span>
+    </button>
+  </nav>
+
+  <!-- ============ AUTH MODAL (Phone + OTP) ============ -->
+  <div id="authModal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="overlay-bg" data-close="auth"></div>
+    <div class="modal-card">
+      <button class="modal-x" data-close="auth" aria-label="Close">✕</button>
+
+      <!-- Step 1: phone -->
+      <div id="stepPhone" class="auth-step is-active">
+        <h2 id="authTitle" class="font-serif text-4xl text-center">Login to continue</h2>
+        <p class="text-center text-mute text-sm mt-2">Enter Details To Login</p>
+
+        <label for="phoneInput" class="block text-sm font-medium mt-8 mb-2">Phone Number <span class="text-red-600">*</span></label>
+        <div class="flex items-stretch border border-black/20 rounded-lg overflow-hidden focus-within:border-ink bg-white">
+          <span class="px-3 flex items-center text-sm bg-black/5 border-r border-black/10">+91</span>
+          <input id="phoneInput" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="Enter mobile number" class="flex-1 px-3 py-3 outline-none bg-transparent" />
+        </div>
+        <p id="phoneError" class="text-xs text-red-600 mt-1 h-4"></p>
+
+        <label class="flex items-start gap-3 mt-4 text-sm text-mute cursor-pointer">
+          <input id="termsCheck" type="checkbox" class="mt-1 w-4 h-4 accent-ink" />
+          <span>By clicking, I accept the <a href="#" class="underline text-ink">Terms &amp; Conditions</a> and <a href="#" class="underline text-ink">Privacy Policy</a>.</span>
+        </label>
+
+        <button id="btnGetOtp" class="btn-dark mt-6" disabled>GET OTP</button>
+      </div>
+
+      <!-- Step 2: OTP -->
+      <div id="stepOtp" class="auth-step">
+        <button id="btnBackPhone" class="text-sm text-mute mb-2" aria-label="Back">← Back</button>
+        <h2 class="font-serif text-4xl text-center">Otp Verification</h2>
+        <p class="text-center text-mute text-sm mt-2">Enter the OTP that was sent to your number</p>
+        <p id="otpPhoneLabel" class="text-center text-sm font-medium mt-1"></p>
+
+        <div id="otpBoxes" class="flex justify-center gap-3 mt-8"></div>
+        <p id="otpError" class="text-xs text-red-600 text-center mt-2 h-4"></p>
+
+        <div class="text-center mt-4">
+          <button id="btnResend" class="text-xs tracking-[0.2em] underline underline-offset-4 disabled:opacity-40 disabled:no-underline" disabled>RESEND OTP</button>
+          <span id="resendTimer" class="text-xs text-mute ml-2"></span>
+        </div>
+
+        <button id="btnContinue" class="btn-dark mt-6" disabled>CONTINUE</button>
+        <p id="testHint" class="hidden text-center text-[11px] text-mute mt-4">Test mode is ON – use OTP <b id="testOtpValue"></b></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SEARCH OVERLAY ============ -->
+  <div id="searchOverlay" class="overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="overlay-bg" data-close="search"></div>
+    <div class="search-panel">
+      <div class="flex items-center gap-3 border-b border-black/10 pb-3">
+        <svg class="w-5 h-5 text-mute" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="search" placeholder="Search rings, hampers, frames…" class="flex-1 outline-none bg-transparent text-lg" />
+        <button data-close="search" class="text-sm text-mute">Close</button>
+      </div>
+      <div id="searchResults" class="mt-4 max-h-[60vh] overflow-y-auto space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div id="cartDrawer" class="overlay" role="dialog" aria-modal="true" aria-label="Cart">
+    <div class="overlay-bg" data-close="cart"></div>
+    <aside class="drawer-panel flex flex-col">
+      <div class="flex items-center justify-between p-4 border-b border-black/10">
+        <h3 class="font-serif text-3xl">Your Cart</h3>
+        <button data-close="cart" class="text-xl" aria-label="Close cart">✕</button>
+      </div>
+      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+      <div class="p-4 border-t border-black/10 bg-white">
+        <p id="shipNote" class="text-xs text-mute mb-2"></p>
+        <div class="flex justify-between font-medium mb-3"><span>Subtotal</span><span id="cartTotal">₹0</span></div>
+        <button id="btnCheckout" class="btn-dark">PLACE ORDER</button>
+        <p class="text-[11px] text-mute text-center mt-2">Pay cash on delivery. Online payment is coming soon.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============ EDIT PROFILE / ADDRESS MODAL ============ -->
+  <div id="editModal" class="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-bg" data-close="edit"></div>
+    <form id="editForm" class="modal-card">
+      <button type="button" class="modal-x" data-close="edit" aria-label="Close">✕</button>
+      <h2 id="editTitle" class="font-serif text-3xl text-center">Profile details</h2>
+
+      <div id="grpProfile" class="mt-6 space-y-4">
+        <div>
+          <label for="editName" class="block text-sm font-medium mb-1">Full name</label>
+          <input id="editName" class="field" placeholder="Your name" />
+        </div>
+        <div>
+          <label for="editPhone" class="block text-sm font-medium mb-1">Phone number</label>
+          <input id="editPhone" class="field bg-black/5" disabled />
+        </div>
+      </div>
+
+      <div id="grpAddress" class="mt-6 hidden">
+        <label for="editAddress" class="block text-sm font-medium mb-1">Delivery address</label>
+        <textarea id="editAddress" rows="4" class="field" placeholder="House name, street, city, PIN code"></textarea>
+      </div>
+
+      <button type="submit" class="btn-dark mt-6">SAVE</button>
+    </form>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Supabase JS SDK (v2) then app logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
